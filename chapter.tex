@@ -1,0 +1,41 @@
+\renewcommand{\maxwidth}{0.8\textwidth}
+\renewcommand{\maxheight}{0.6\textheight}
+
+
+% \newcommand{\nametext}{NULL}
+% \newcommand{\name}{null}
+
+\newcommand{\listingname}{listing.cpp}
+\newcommand{\imagename}{image.jpg}
+
+\newcommand{\illustration}[2]{
+\graphicspath{{#1}}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[max width=\maxwidth, max height=\maxheight, center]{\imagename}
+    \caption{#2}
+    \label{#1}
+\end{figure}
+}
+
+\newcommand{\illustrationlisting}[2]{
+\inputminted[linenos]{c++}{#1/\listingname}
+}
+
+\newcommand{\task}[2]{
+
+\clearpage
+\section{#2}
+
+\illustration{#1}{#2}
+\illustrationlisting{#1}{#2}
+
+}
+
+
+
+% \task{10_hello_world}{Привет, мир!}
+
+% \illustration{10_hello_world}{HELLO}
+% \illustrationlisting{10_hello_world}{HELLO}

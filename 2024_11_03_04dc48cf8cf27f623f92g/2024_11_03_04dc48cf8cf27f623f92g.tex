@@ -1,0 +1,309 @@
+\documentclass[10pt]{article}
+\usepackage[russian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+
+\title{Технология. Arduino 8 класс 255 школа \\
+ Методическое пособие \\
+ Ярмолинский Арсений Маркович \\
+ 10 сентября 2024 г. }
+
+\author{}
+\date{}
+
+
+\begin{document}
+\maketitle
+\section*{Содержание}
+1 Начало работы с Wokwi 2\\
+1.1 Создание проекта . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+
+2 План 8\\
+3 Привет, мир! 9\\
+4 Плавный маяк 10\\
+5 Регулируемая лампочка 11\\
+6 Автоматический ночник 12\\
+7 Пульсар 14\\
+8 Эквалайзер 16
+
+\section*{1 Начало работы с Wokwi}
+\section*{1.1 Создание проекта}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_11_03_04dc48cf8cf27f623f92g-02(1)}
+\end{center}
+
+Рис. 1: Вид главной страницы Wokwi\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-02}
+
+Рис. 2: Откройте выпадающее меню профиля и нажмите кнопку "Мои проекты"\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-03(1)}
+
+Рис. 3: Страница проектов\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-03}
+
+Рис. 4: Создайте новый проект\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-03(2)}
+
+Рис. 5: Выберите в меню слева семейство контроллеров Arduino\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-04(1)}
+
+Рис. 6: Выберите контроллер Arduino Uno Rev3\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-04}
+
+Рис. 7: Созданный пустой проект!\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-05}
+
+Рис. 8: После внесения изменений сохраните проект с помощью кнопки SAVE\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-05(1)}
+
+Рис. 9: Введите название проекта и убедитесь, что он сохраняется как Public\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-06}
+
+Рис. 10: Для добавления новой детали нажмите кнопку добавления\\
+\includegraphics[max width=\textwidth, center]{2024_11_03_04dc48cf8cf27f623f92g-07}
+
+Рис. 11: И выберите нужную деталь из выпадающего меню
+
+\section*{2 План}
+\begin{enumerate}
+  \item Мигание светодиодом. delay(), digitalWrite()
+  \item Маячок с нарастающей яркостью. ШИМ, analogWrite(), Идентификаторы
+  \item Регулируемая лампочка. analogRead(), int, Переменные
+  \item Автоматический ночник. bool, if ()
+  \item Пульс. mod
+  \item Бегущий огонь. for()
+  \item Вентилятор. Силовая нагрузка. Мотор
+  \item Световой телеграф. подключение кнопок, digitalRead()
+  \item Лампочка с кнопкой. Защита от дребезга
+  \item Регулируемая лампочка. Функции
+  \item Кнопочные ковбои. Массивы
+  \item Секундомер. Семисегментный индикатор, bitRead()
+  \item Счетчик нажатий. Сдвиговый регистр, shiftOut()
+  \item Комнатный термометр. Датчик температуры. Математические выражения
+  \item Метеостанция. Serial.print(), Serial.println()
+  \item Пантограф. Servo
+  \item USB лампочка. Serial.read()
+\end{enumerate}
+
+\section*{3 Привет, мир!}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_11_03_04dc48cf8cf27f623f92g-09}
+\end{center}
+
+Рис. 12: Привет, мир!
+
+\begin{verbatim}
+void setup()
+{
+    pinMode(13, OUTPUT); // Настраиваем 13 выход Ардуино на выход
+} // Команды в void setup() выполнятся один раз при включении микроконтроллера
+void loop()
+{
+    digitalWrite(13, HIGH); // Подаем высокое напряжение на пине 13
+    delay(1000); // Ждем 1 секунду (1000 миллисекунд)
+    digitalWrite(13, LOW); // Подаем низкое напряжение на пин 13
+    delay(1000); // Снова ждем секунду
+} // Эта последовательность действий будет повторятся бесконечно,
+    // поскольку написана в void loop()
+\end{verbatim}
+
+\begin{verbatim}
+    Листинг 1: Привет, мир!
+\end{verbatim}
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_11_03_04dc48cf8cf27f623f92g-10}
+\end{center}
+
+Рис. 13: Плавный маяк
+
+\begin{verbatim}
+#define LED_PIN 9
+void setup()
+{
+    pinMode(LED_PIN, OUTPUT);
+}
+void loop()
+{
+    analogWrite(LED_PIN, 0);
+    delay(250);
+    analogWrite(LED_PIN, 30);
+    delay(250);
+    analogWrite(LED_PIN, 100);
+    delay(250);
+    analogWrite(LED_PIN, 255);
+    delay(250);
+}
+\end{verbatim}
+
+Листинг 2: Плавный маяк
+
+\section*{5 Регулируемая лампочка}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_11_03_04dc48cf8cf27f623f92g-11}
+\end{center}
+
+Рис. 14: Регулируемая лампочка
+
+\begin{verbatim}
+#define LED_PIN 9
+#define POT_PIN AO
+void setup()
+{
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(POT_PIN, INPUT); // 0бъявляем наш потенщиометр как вход
+}
+void loop()
+{
+    int rotation, brightness;
+    rotation = analogRead(POT_PIN);
+    brightness = rotation / 4;
+    analogWrite(LED_PIN, brightness);
+}
+\end{verbatim}
+
+Листинг 3: Регулируемая лампочка
+
+\section*{6 Автоматический ночник}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_11_03_04dc48cf8cf27f623f92g-12}
+\end{center}
+
+Рис. 15: Автоматический ночник
+
+\begin{verbatim}
+#define LED_PIN 9
+#define LIGHT_PIN A2
+void setup()
+{
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(LIGHT_PIN, INPUT);
+}
+void loop()
+{
+    int light;
+    bool is_night;
+    light = analogRead(LIGHT_PIN);
+    is_night = light > 500;
+    analogWrite(LED_PIN, is_night);
+\end{verbatim}
+
+Листинг 4: Автоматический ночник
+
+\section*{7 Пульсар}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_11_03_04dc48cf8cf27f623f92g-14}
+\end{center}
+
+Рис. 16: Пульсар
+
+\begin{verbatim}
+#define RED_PIN 11
+#define GRN_PIN 10
+#define BLU_PIN 9
+int brightness_R = 0;
+int brightness_G = 86;
+int brightness_B = 171;
+void setup()
+{
+    pinMode(RED_PIN, OUTPUT);
+    pinMode(GRN_PIN, OUTPUT);
+    pinMode(BLU_PIN, OUTPUT);
+}
+void loop()
+{
+    brightness_R = (brightness_R + 1) % 256;
+    brightness_G = (brightness_G + 1) % 256;
+    brightness_B = (brightness_B + 1) % 256;
+    analogWrite(RED_PIN, brightness_R);
+    analogWrite(GRN_PIN, brightness_G);
+    analogWrite(BLU_PIN, brightness_B);
+\end{verbatim}
+
+\begin{verbatim}
+delay(10);
+\end{verbatim}
+
+$7\}$
+
+Листинг 5: Пульсар
+
+\section*{8 Эквалайзер}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_11_03_04dc48cf8cf27f623f92g-16}
+\end{center}
+
+Рис. 17: Эквалайзер
+
+\begin{verbatim}
+/*
+    LED bar graph
+    https://wokwi.com/arduino/projects /309829489359061570
+    Turns on a series of LEDs based on the value of an analog sensor.
+    This is a simple way to make a bar graph display. Though this graph uses
+        10
+    LEDs, you can use any number by changing the LED count and the pins in the
+    array.
+    This method can be used to control any series of digital outputs that
+        depends
+    on an analog input.
+    The circuit:
+    - LEDs from pins 2 through 11 to ground
+    created 4 Sep 2010
+    by Tom Igoe
+    This example code is in the public domain.
+    https://www.arduino.cc/en/Tutorial/BuiltInExamples/BarGraph
+*/
+// these constants won't change:
+#define ANALOG_PIN AO // the pin that the potentiometer is attached to
+#define LED_COUNT 10 // the number of LEDs in the bar graph
+int ledPins [] = {
+    2, 3, 4, 5, 6, 7, 8, 9, 10, 11}; // an array of pin numbers to which LEDs are
+    attached
+\end{verbatim}
+
+\begin{verbatim}
+void setup()
+{
+    // loop over the pin array and set them all to output:
+    for (int thisLed = 0; thisLed < LED_COUNT; thisLed++)
+    {
+        pinMode(ledPins[thisLed], OUTPUT);
+    }
+}
+void loop()
+{
+    // read the potentiometer:
+    int sensorReading = analogRead(ANALOG_PIN);
+    // map the result to a range from O to the number of LEDs:
+    int ledLevel = map(sensorReading, 0, 1023, 0, LED_COUNT);
+    // loop over the LED array:
+    for (int thisLed = 0; thisLed < LED_COUNT; thisLed++)
+    {
+        // if the array element's index is less than ledLevel,
+        // turn the pin for this element on:
+        if (thisLed < ledLevel)
+        {
+            digitalWrite(ledPins[thisLed], HIGH);
+        }
+        // turn off all pins higher than the ledLevel:
+        else
+        {
+            digitalWrite(ledPins[thisLed], LOW);
+        }
+    }
+}
+\end{verbatim}
+
+Листинг 6: Эквалайзер
+
+
+\end{document}
